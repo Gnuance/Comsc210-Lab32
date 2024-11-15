@@ -23,29 +23,18 @@ bool NewCustomerJoinsLine();
 bool CustomerEndOfLineLeaves();
 bool AnyCustomerLeaves();
 bool VipStraightToFront();
-unsigned long RandCustomerInt();
+string CurrentQueueToString(const deque<Car> &);
 
 int main()
 {
     srand(static_cast<unsigned int>(time(nullptr))); // seed current time to rand()
-    deque<Car> tollBooth = {}; // empty toll booth line
+    deque<Car> tollBooth = {};                       // empty toll booth line
 
-    while (getline(inputFile, fileLine))
-    {
-        names.push_back(fileLine);
-    }
-    inputFile.close();
-    // Names are now in vector
-
-    // Start line
+    // initialize toll booth with 2 vehicles
     cout << "Initial queue:" << endl;
-    for (int i = 0; i < 5; i++)
-    {
-        name = names.at(RandCustomerInt());
-        coffeeLine.push_back(name);
-        cout << "\t" << name << " joins the line" << endl;
-    }
 
+    // run simulation until queue is empty
+    // output list at end of period
     cout << "Resulting list: ";
 
     return 0;
@@ -71,7 +60,16 @@ bool VipStraightToFront()
 {
     return ((rand() % 100) + 1) <= 10;
 }
-unsigned long RandCustomerInt()
+// returns a string listing each element in deque
+string CurrentQueueToString(const deque<Car> &q)
 {
+    string output = "Queue:\n";
+    int count = 0;
+    for (auto it = q.begin(); it != q.end(); it++)
+    {
+        cout << "\t" << it->print();
+        count++;
+    }
+
     return (rand() % 99) + 1;
 }
