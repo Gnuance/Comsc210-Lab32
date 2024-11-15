@@ -18,11 +18,11 @@
 #include "Car.h"
 using namespace std;
 
-bool FrontCustomerHelped();
-bool NewCustomerJoinsLine();
-bool CustomerEndOfLineLeaves();
-bool AnyCustomerLeaves();
-bool VipStraightToFront();
+// variables for starting number of cars, liklihood of car paying, liklihood of new car joining line
+const int NUM_INITIAL_CARS = 2, CHANCE_CAR_PAYS = 55, CHANCE_NEW_CAR_JOINS = 45;
+
+bool FrontCarPaid();
+bool NewCarJoinsQueue();
 void CurrentQueueToConsole(deque<Car> &);
 
 int main()
@@ -30,36 +30,42 @@ int main()
     srand(static_cast<unsigned int>(time(nullptr))); // seed current time to rand()
     deque<Car> tollBooth = {};                       // empty toll booth line
 
-    // initialize toll booth with 2 vehicles
+    // initialize toll booth with 2 vehicles and output to console
+    for (int i = 0; i < NUM_INITIAL_CARS; i++)
+    {
+        tollBooth.push_back(Car());
+    }
     cout << "Initial queue:" << endl;
+    CurrentQueueToConsole(tollBooth);
 
-    // run simulation until queue is empty
+    // run simulation until toll booth is empty
+    while (!tollBooth.empty())
+    {
+        if (FrontCarPaid())
+        {
+            /* code */
+        }
+        
+    }
+
     // output list at end of period
     cout << "Resulting list: ";
 
     return 0;
 }
 
-bool FrontCustomerHelped()
+// returns whether front car pays and leaves
+bool FrontCarPaid()
 {
-    return ((rand() % 100) + 1) <= 40;
+    return ((rand() % 100) + 1) <= CHANCE_CAR_PAYS;
 }
-bool NewCustomerJoinsLine()
+
+// returns whether a new car will join line
+bool NewCarJoinsQueue()
 {
-    return ((rand() % 100) + 1) <= 60;
+    return ((rand() % 100) + 1) <= CHANCE_NEW_CAR_JOINS;
 }
-bool CustomerEndOfLineLeaves()
-{
-    return ((rand() % 100) + 1) <= 20;
-}
-bool AnyCustomerLeaves()
-{
-    return ((rand() % 100) + 1) <= 10;
-}
-bool VipStraightToFront()
-{
-    return ((rand() % 100) + 1) <= 10;
-}
+
 // outputs each element in deque
 void CurrentQueueToConsole(deque<Car> &q)
 {
