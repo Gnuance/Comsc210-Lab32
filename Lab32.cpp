@@ -23,7 +23,7 @@ bool NewCustomerJoinsLine();
 bool CustomerEndOfLineLeaves();
 bool AnyCustomerLeaves();
 bool VipStraightToFront();
-string CurrentQueueToString(const deque<Car> &);
+void CurrentQueueToConsole(deque<Car> &);
 
 int main()
 {
@@ -60,16 +60,15 @@ bool VipStraightToFront()
 {
     return ((rand() % 100) + 1) <= 10;
 }
-// returns a string listing each element in deque
-string CurrentQueueToString(const deque<Car> &q)
+// outputs each element in deque
+void CurrentQueueToConsole(deque<Car> &q)
 {
-    string output = "Queue:\n";
     int count = 0;
+    cout << "Queue:\n";
     for (auto it = q.begin(); it != q.end(); it++)
     {
-        cout << "\t" << it->print();
+        cout << "\t";
+        it->print();
         count++;
     }
-
-    return (rand() % 99) + 1;
 }
