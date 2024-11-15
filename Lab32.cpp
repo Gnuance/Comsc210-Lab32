@@ -29,6 +29,7 @@ int main()
 {
     srand(static_cast<unsigned int>(time(nullptr))); // seed current time to rand()
     deque<Car> tollBooth = {};                       // empty toll booth line
+    int count = 0;
 
     // initialize toll booth with 2 vehicles and output to console
     for (int i = 0; i < NUM_INITIAL_CARS; i++)
@@ -43,9 +44,12 @@ int main()
     {
         if (FrontCarPaid())
         {
-            /* code */
+            tollBooth.pop_front();
         }
-        
+        if (NewCarJoinsQueue())
+        {
+            tollBooth.push_back(Car());
+        }  
     }
 
     // output list at end of period
