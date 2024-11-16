@@ -32,6 +32,8 @@ int main()
     srand(static_cast<unsigned int>(time(nullptr))); // seed current time to rand()
     deque<Car> tollBooth = {};                       // empty toll booth line
     int count = 0;
+    Car tempCar;
+    string output = "";
 
     // initialize toll booth with 2 vehicles and output to console
     for (int i = 0; i < NUM_INITIAL_CARS; i++)
@@ -43,16 +45,21 @@ int main()
 
     // run simulation until toll booth is empty
     while (!tollBooth.empty())
-    {
+    {        
+        cout << "Time: " << ++count << " - ";
         if (((rand() % 100) + 1) <= CHANCE_CAR_PAYS)
-            ;
         {
+            tempCar = tollBooth.front();
             tollBooth.pop_front();
+            cout << "Car paid: ";
+        } else {
+            tempCar = Car();
+            tollBooth.push_back(tempCar);
+            cout << "Car joined: ";
         }
-        else
-        {
-            tollBooth.push_back(Car());
-        }
+        tempCar.print();
+        CurrentQueueToConsole(tollBooth);
+        cout << endl;
     }
 
     // output list at end of period
