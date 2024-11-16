@@ -21,8 +21,10 @@ using namespace std;
 // variables for starting number of cars, liklihood of car paying, liklihood of new car joining line
 const int NUM_INITIAL_CARS = 2, CHANCE_CAR_PAYS = 55, CHANCE_NEW_CAR_JOINS = 45;
 
+// for simulation where car pays and joins queue are separate events
 bool FrontCarPaid();
 bool NewCarJoinsQueue();
+// prints current queue
 void CurrentQueueToConsole(deque<Car> &);
 
 int main()
@@ -42,14 +44,15 @@ int main()
     // run simulation until toll booth is empty
     while (!tollBooth.empty())
     {
-        if (FrontCarPaid())
+        if (((rand() % 100) + 1) <= CHANCE_CAR_PAYS)
+            ;
         {
             tollBooth.pop_front();
         }
-        if (NewCarJoinsQueue())
+        else
         {
             tollBooth.push_back(Car());
-        }  
+        }
     }
 
     // output list at end of period
